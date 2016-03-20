@@ -23,5 +23,21 @@ namespace System
                 return attribute.Description;
             }
         }
+
+        /// <summary>
+        /// Name, 小写形式
+        /// </summary>
+        public static string ToName(this Enum value)
+        {
+            return value.ToString().ToLower();
+        }
+
+        /// <summary>
+        /// Value, 整数形式
+        /// </summary>
+        public static int ToValue(this Enum value)
+        {
+            return Convert.ToInt32(value);
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace System
         /// <example>DateTime.Now.ToUnixTimestamp()</example>
         public static long ToUnixTimestamp(this DateTime source)
         {
-            return (source.Ticks - 621355968000000000)/10000;
+            return (source.ToUniversalTime().Ticks - 621355968000000000)/10000;
         }
         
         /// <summary>
@@ -55,7 +55,27 @@ namespace System
         /// <example>DateTime.Now.ToUnixTimestamp()</example>
         public static long ToUnixTimestamp10(this DateTime source)
         {
-            return (source.Ticks - 621355968000000000) / 10000000;
+            return (source.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
+        }
+
+        /// <summary>
+        /// 将Unix时间戳(长整数形式，单位毫秒)转换成DateTime对象值，
+        /// </summary>
+        /// <example>DateTime.Now.ToUnixTimestamp()</example>
+        public static DateTime FromUnixTimestamp13(this DateTime source, long unixTimestamp)
+        {
+            return new DateTime(unixTimestamp * 10000 + 621355968000000000, DateTimeKind.Utc)
+                .ToLocalTime();
+        }
+
+        /// <summary>
+        /// 将Unix时间戳(长整数形式，单位秒)转换成DateTime对象值
+        /// </summary>
+        /// <example>DateTime.Now.ToUnixTimestamp()</example>
+        public static DateTime FromUnixTimestamp(this DateTime source, long unixTimestamp10)
+        {
+            return new DateTime(unixTimestamp10 * 10000000 + 621355968000000000, DateTimeKind.Utc)
+                .ToLocalTime();
         }
     }
 }
