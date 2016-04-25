@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
+using System.Text;
 
 namespace System
 {
@@ -47,6 +48,75 @@ namespace System
             }
 
             return toLower ? result.ToLower() : result.ToUpper();
+        }
+        /// <summary>
+        /// 转换成MD5散列字符串
+        /// </summary>
+        /// <param name="source">源字符串</param>
+        /// <param name="toLower">返回哈希值格式 true：英文小写，false：英文大写</param>
+        /// <returns>MD5散列字符串</returns>
+        /// <example>
+        /// "123456".ToMd5Hash();
+        /// </example>
+        public static string ToMd5(this string source, bool toLower = true)
+        {
+            var result = string.Empty;
+
+            var builder = new StringBuilder();
+            using (var hash = new System.Security.Cryptography.MD5CryptoServiceProvider())
+            {
+                hash.Initialize();
+                var bytes = System.Text.Encoding.UTF8.GetBytes(source);
+                bytes = hash.ComputeHash(bytes);
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+            }
+
+            return toLower ? builder.ToString().ToLower() : builder.ToString().ToUpper();
+        }
+        /// <summary>
+        /// 转换成MD5散列字符串
+        /// </summary>
+        /// <param name="source">源字符串</param>
+        /// <param name="toLower">返回哈希值格式 true：英文小写，false：英文大写</param>
+        /// <returns>MD5散列字符串</returns>
+        /// <example>
+        /// "123456".ToMd5Hash();
+        /// </example>
+        public static string ToMd5Base64(this string source, bool toLower = true)
+        {
+            var result = string.Empty;
+
+            using (var hash = new System.Security.Cryptography.MD5CryptoServiceProvider())
+            {
+                hash.Initialize();
+                var bytes = System.Text.Encoding.UTF8.GetBytes(source);
+                bytes = hash.ComputeHash(bytes);
+                result = Convert.ToBase64String(bytes);
+            }
+
+            return toLower ? result.ToLower() : result.ToUpper();
+        }
+        /// <summary>
+        /// 转换成MD5散列字符串
+        /// </summary>
+        /// <param name="source">源字符串</param>
+        /// <param name="toLower">返回哈希值格式 true：英文小写，false：英文大写</param>
+        /// <returns>MD5散列字符串</returns>
+        /// <example>
+        /// "123456".ToMd5Hash();
+        /// </example>
+        public static Int64 ToMd5Int64(this string source)
+        {
+            using (var hash = new System.Security.Cryptography.MD5CryptoServiceProvider())
+            {
+                hash.Initialize();
+                var bytes = System.Text.Encoding.UTF8.GetBytes(source);
+                bytes = hash.ComputeHash(bytes);
+                return Math.Abs(BitConverter.ToInt32(bytes, 0));
+            }
         }
 
 
