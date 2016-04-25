@@ -10,7 +10,7 @@
     <projectUrl>http://p2planet.sinaapp.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Add String.ToMd5(), String.ToMd5Int64()</releaseNotes>
+    <releaseNotes>Remove System.Web.Mvc</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>PLibs PExt P2Planet DotNet Extensions</tags>
   </metadata>
